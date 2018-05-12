@@ -4,9 +4,7 @@ emascの私的な設定
 Overview
 
 
-補完用パッケージとしてcompanyを入れている
-
-あとでCaskとか書く予定(未定)
+あとでCaskかel-getでパッケージ管理する
 
 # install packages list
 
