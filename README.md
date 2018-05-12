@@ -3,9 +3,26 @@ emascの私的な設定
 
 Overview
 
+
 補完用パッケージとしてcompanyを入れている
 
 あとでCaskとか書く予定(未定)
+
+# install packages list
+
+* use-packages
+* hiwin
+* linum
+* elscreen
+* neotree
+* company
+* irony
+* js2-mode
+* web-mode
+* yaml-mode
+* emmet-mode
+* php-mode
+* ac-php
 
 
 C/C++　C++のコンパイルオプションが17になっていることに注意

@@ -18,6 +18,7 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'exec-path "C:/Program Files (x86)/LLVM/bin")
 (package-initialize)
+(require 'use-package)
 
 ;; emacs style
 ;(add-to-list 'default-frame-alist '(font . "ricty-12")) ;mac
@@ -65,7 +66,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
+	(use-package markdown-mode emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -153,3 +154,12 @@
   '(define-key emmet-mode-keymap (kbd "C-j") nil))
 (keyboard-translate ?\C-i ?\H-i) ;;C-i と Tabの被りを回避
 (define-key emmet-mode-keymap (kbd "H-i") 'emmet-expand-line) ;; C-i で展開
+
+;;markdown
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
