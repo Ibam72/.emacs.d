@@ -16,8 +16,28 @@
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'exec-path "C:/Program Files (x86)/LLVM/bin")
+(add-to-list 'exec-path "C:/Program Files (x86)/LLVM/bin") ;;windows
+;(add-to-list 'exec-path "C:/Program Files (x86)/LLVM/bin") ;;mac
+
 (package-initialize)
+;(package-refresh-contents) ;;この処理重い 
+
+(package-install 'use-package)
+(package-install 'hiwin)
+(package-install 'linum)
+(package-install 'elscreen)
+(package-install 'neotree)
+(package-install 'company)
+(package-install 'irony)
+(package-install 'js2-mode)
+(package-install 'yaml-mode)
+(package-install 'emmet-mode)
+(package-install 'php-mode)
+(package-install 'ac-php)
+(package-install 'quickrun)
+
+
+
 (require 'use-package)
 
 ;; emacs style
@@ -66,7 +86,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-	(use-package markdown-mode emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
+	(quickrun ac-php yaml-mode neotree elscreen linum hiwin el-get use-package markdown-mode emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
