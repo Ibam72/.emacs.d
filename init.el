@@ -8,18 +8,28 @@
 (set-buffer-file-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
+;; Package
+(require 'package)
+(setq package-user-dir "~/.emacs.d/elisp/elpa/")
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'exec-path "C:/Program Files (x86)/LLVM/bin")
+(package-initialize)
+
 ;; emacs style
-;;(add-to-list 'default-frame-alist '(font . "ricty-12"))
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(setq custom-theme-directory "~/.emacs.d/themes")
-;;(load-theme 'monokai t)
+;(add-to-list 'default-frame-alist '(font . "ricty-12")) ;mac
+;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+;(setq custom-theme-directory "~/.emacs.d/themes")
 (require 'hiwin)
 (hiwin-activate)
 (set-face-background 'hiwin-face "#ffeeff")
-;;(require 'linum)
-;;(global-linum-mode 1)
+(require 'linum)
+(global-linum-mode 1)
 (setq default-tab-width 4)
-;; elscreen
+; elscreen
 (require 'elscreen)
 (elscreen-start)
 (global-set-key (kbd "s-t") 'elscreen-create)
@@ -39,23 +49,14 @@
                     :background "grey30"
                     :foreground "grey60")
 ;; neotree
-;;(require 'neotree)
-;;(global-set-key "\C-o" 'neotree-toggle)
+(require 'neotree)
+(global-set-key "\C-o" 'neotree-toggle)
 
 ;; Keys
 (global-set-key "\C-z" 'term)
 (global-set-key (kbd "<f5>") 'revert-buffer)
 
-;; Package
-(require 'package)
-(setq package-user-dir "~/.emacs.d/elisp/elpa/")
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'exec-path "C:/Program Files (x86)/LLVM/bin")
-(package-initialize)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -152,5 +153,3 @@
   '(define-key emmet-mode-keymap (kbd "C-j") nil))
 (keyboard-translate ?\C-i ?\H-i) ;;C-i と Tabの被りを回避
 (define-key emmet-mode-keymap (kbd "H-i") 'emmet-expand-line) ;; C-i で展開
-
-
