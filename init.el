@@ -16,13 +16,14 @@
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'exec-path "C:/Program Files (x86)/LLVM/bin") ;;windows
-;(add-to-list 'exec-path "C:/Program Files (x86)/LLVM/bin") ;;mac
+(add-to-list 'exec-path "C:/Program Files/LLVM/bin") ;;windows
+;;(add-to-list 'exec-path "C:/Program Files (x86)/LLVM/bin") ;;mac
 
 (package-initialize)
-;(package-refresh-contents) ;;この処理重い 
+;;(package-refresh-contents) ;;この処理重い 
 
 (package-install 'use-package)
+(package-install 'init-loader)
 (package-install 'hiwin)
 (package-install 'linum)
 (package-install 'elscreen)
@@ -35,15 +36,21 @@
 (package-install 'php-mode)
 (package-install 'ac-php)
 (package-install 'quickrun)
+(package-install 'flycheck)
+(package-install 'flycheck-irony)
 
-
-
+(global-flycheck-mode)
 (require 'use-package)
 
+;; init load
+;;(require 'init-loader)
+;;(setq init-loader-show-log-after-init nil)
+;;(init-loader-load "~/.emacs.d/inits/")
+
 ;; emacs style
-;(add-to-list 'default-frame-alist '(font . "ricty-12")) ;mac
-;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;(setq custom-theme-directory "~/.emacs.d/themes")
+;;(add-to-list 'default-frame-alist '(font . "ricty-12")) ;mac
+;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+;;(setq custom-theme-directory "~/.emacs.d/themes")
 (require 'hiwin)
 (hiwin-activate)
 (set-face-background 'hiwin-face "#ffeeff")
@@ -74,9 +81,12 @@
 (global-set-key "\C-o" 'neotree-toggle)
 
 ;; Keys
-(global-set-key "\C-z" 'term)
-(global-set-key (kbd "<f5>") 'revert-buffer)
 
+(global-set-key (kbd "<f5>") 'revert-buffer-no-confirm)
+(global-set-key (kbd "<f6>") 'eshell)
+(global-set-key (kbd "<f7>") 'quickrun)
+(global-set-key (kbd "C-<f7>") 'quickrun-with-arg)
+(global-set-key (kbd "M-<f7>") 'quickrun-compile-only)
 
 
 (custom-set-variables
@@ -86,7 +96,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-	(quickrun ac-php yaml-mode neotree elscreen linum hiwin el-get use-package markdown-mode emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
+	(flycheck-irony init-loader quickrun ac-php yaml-mode neotree elscreen linum hiwin el-get use-package markdown-mode emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -100,7 +110,7 @@
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 4)
 (setq company-selection-wrap-around t)
-
+(setq w32-pipe-read-delay 0) ; for windows
 
 
 ;; C,C++
@@ -110,6 +120,8 @@
 (add-hook 'objc-mode-hook 'irony-mode)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 (add-to-list 'company-backends 'company-irony)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 ;; C,C++ compile option
 (setq irony-lang-compile-option-alist

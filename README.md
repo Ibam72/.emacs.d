@@ -1,14 +1,21 @@
-emascの私的な設定
+emascの設定
 ===
 
 Overview
 
 
-あとでCaskかel-getでパッケージ管理する
+あとでCaskかel-getでパッケージ管理する(package.elでいい気がする)
+
+init-loader使おうよ(https://qiita.com/tadsan/items/181a352edcda740582ec)
+
+そのうち書き直そう
+
+require ではなくuse-package 使うか検討
 
 # install packages list
 
 * use-packages
+* init-loader
 * hiwin
 * linum
 * elscreen
@@ -21,43 +28,30 @@ Overview
 * emmet-mode
 * php-mode
 * ac-php
+* flycheck
+* flycheck-irony
 
+# 導入予定
 
-C/C++　C++のコンパイルオプションが17になっていることに注意
+定型文挿入		yasnippet (導入予定)(emmetあるから少し分からない)emmet-mode有効時に無効化するか干渉するやつ制限するか
 
-https://qiita.com/alpha22jp/items/90f7f2ad4f8b1fa089f4
+rtags　　　　　　https://qiita.com/MitsutakaTakeda/items/2f526a85ad39424a8363
 
-定型文挿入		yasnippet (導入予定)
-
-補完機能			iroy-mode + company-mode (irony-serverの導入に注意)
-
-エラーチェック		flycheck + flycheck-irony (導入予定)
-
-rtags(導入予定)
-
-##
-
-Javasprict
+## Javasprict
 
 補完機能			term + company
 
-## 
+## php 
+
+* php-mode
+
+* ac-php
+
+"touch .ac-php-conf.json"
+"M-x ac-php-remake-tags-all"
 
 
-php
+# 注意事項
 
-
-php-mode
-
-ac-php
-
-
-
-
-irony-server-install時注意
-
-llvmとかcmakeが必要
-
-macだとこける(どこかに入れ方がある)
-
-windowsでもこける(cmakeのllvmの参照先が"program file (x86)"ではなく"program file"だったのが問題だった)
+*C/C++　C++のコンパイルオプションが17になっていることに注意(パスが通ってないので使えない)
+*irony-server-install時にllvmとかcmakeが必要。macだとこける(どこかに入れ方がある)。windowsでもこける(cmakeのllvmの参照先が"program file (x86)"ではなく"program file"だったのが問題だった)
