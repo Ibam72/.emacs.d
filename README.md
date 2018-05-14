@@ -12,6 +12,10 @@ init-loader使おうよ(https://qiita.com/tadsan/items/181a352edcda740582ec)
 
 require ではなくuse-package 使うか検討
 
+# やることリスト
+
+https://github.com/Sarcasm/irony-mode/issues/410
+
 # install packages list
 
 * use-packages
