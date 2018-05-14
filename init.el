@@ -38,6 +38,7 @@
 (package-install 'quickrun)
 (package-install 'flycheck)
 (package-install 'flycheck-irony)
+(package-install 'sr-speedbar)
 
 (global-flycheck-mode)
 (require 'use-package)
@@ -103,6 +104,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(require 'sr-speedbar)
+(setq sr-speedbar-right-side nil)
 
 ;; Company
 (require 'company)
