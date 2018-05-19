@@ -16,32 +16,44 @@
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'exec-path "C:/Program Files/LLVM/bin") ;;windows
-;;(add-to-list 'exec-path "C:/Program Files (x86)/LLVM/bin") ;;mac
 
 (package-initialize)
-;;(package-refresh-contents) ;;この処理重い 
+;;(package-refresh-contents)
 
+
+(package-install 'ac-php)
+(package-install 'irony)
+(package-install 'kotlin-mode)
+(package-install 'ac-html-bootstrap)
+(package-install 'twitering-mode)
+(package-install 'sr-speedbar)
 (package-install 'use-package)
-(package-install 'init-loader)
+
+
 (package-install 'hiwin)
 (package-install 'linum)
 (package-install 'elscreen)
 (package-install 'neotree)
 (package-install 'company)
-(package-install 'irony)
+(package-install 'company-web)
+(package-install 'init-loader)
 (package-install 'js2-mode)
 (package-install 'yaml-mode)
 (package-install 'emmet-mode)
 (package-install 'php-mode)
-(package-install 'ac-php)
 (package-install 'quickrun)
 (package-install 'flycheck)
 (package-install 'flycheck-irony)
-(package-install 'sr-speedbar)
-
+(package-install 'tree-mode)
+(package-install 'elmacro)
+(package-install 'magit)
 (global-flycheck-mode)
+
+(add-to-list 'exec-path "C:/Program Files/LLVM/bin") ;;windows
 (require 'use-package)
+(require 'twittering-mode)
+(require 'elmacro)
+(elmacro-mode)
 
 ;; init load
 ;;(require 'init-loader)
@@ -81,13 +93,31 @@
 (require 'neotree)
 (global-set-key "\C-o" 'neotree-toggle)
 
+;; macro
+;;(let frame-parameter buffer-list)
+;;(let frame-selected-window )
+;;(fset 'kill-buffer-and-frame
+;;	  [() ?\S-\C-e ?\M-w ?\C-e ?\C-j ?\C-a ?\S-\C-e ?\C-y ?\C-a])
 ;; Keys
 
 (global-set-key (kbd "<f5>") 'revert-buffer-no-confirm)
-(global-set-key (kbd "<f6>") 'eshell)
-(global-set-key (kbd "<f7>") 'quickrun)
-(global-set-key (kbd "C-<f7>") 'quickrun-with-arg)
-(global-set-key (kbd "M-<f7>") 'quickrun-compile-only)
+(global-set-key (kbd "C-<f5>") 'next-buffer)
+(global-set-key (kbd "M-<f5>") 'previous-buffer)
+(global-set-key (kbd "<f6>") 'buffer-menu)
+(global-set-key (kbd "C-<f6>") 'other-window)
+(global-set-key (kbd "M-<f6>") 'other-frame)
+(global-set-key (kbd "<f7>") 'kill-buffer)
+(global-set-key (kbd "C-<f7>") 'delete-window)
+(global-set-key (kbd "M-<f7>") 'delete-frame)
+(global-set-key (kbd "<f8>") 'eshell)
+;;(global-set-key (kbd "C-<f8>") ')
+;;(global-set-key (kbd "M-<f8>") ')
+;;(global-set-key (kbd "<f9>") 'eshell)
+;;(global-set-key (kbd "C-<f9>") ')
+;;(global-set-key (kbd "M-<f9>") ')
+(global-set-key (kbd "<f10>") 'quickrun)
+(global-set-key (kbd "C-<f10>") 'quickrun-with-arg)
+(global-set-key (kbd "M-<f10>") 'quickrun-compile-only)
 
 
 (custom-set-variables
@@ -97,7 +127,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-	(flycheck-irony init-loader quickrun ac-php yaml-mode neotree elscreen linum hiwin el-get use-package markdown-mode emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
+	(twitering-mode tree-mode company-web company-axiom magit ac-html-bootstrap kotlin-mode elmacro sr-speedbar flycheck-irony init-loader quickrun ac-php yaml-mode neotree elscreen linum hiwin el-get use-package markdown-mode emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -169,6 +199,8 @@
                (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
                ))
 
+
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -181,6 +213,13 @@
 (setq web-mode-engines-alist
 '(("php"    . "\\.phtml\\'")
   ("blade"  . "\\.blade\\.")))
+(require 'company-web-html)
+(require 'company-web-jade) 
+(require 'company-web-slim)
+(define-key web-mode-map (kbd "C-'") 'company-web-html)
+(add-hook 'web-mode-hook (lambda ()
+                          (set (make-local-variable 'company-backends) '(company-web-html))
+                          (company-mode t)))
 
 (require 'emmet-mode)
 (add-hook 'sgml-mode-hook 'emmet-mode)
