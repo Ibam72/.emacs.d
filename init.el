@@ -54,9 +54,8 @@
 (require 'twittering-mode)
 (require 'elmacro)
 (elmacro-mode)
-
 (require 'magit)
-(global-set-key (kbd "C-x g") 'magit-status)
+
 ;; init load
 ;;(require 'init-loader)
 ;;(setq init-loader-show-log-after-init nil)
@@ -102,21 +101,28 @@
 ;;	  [() ?\S-\C-e ?\M-w ?\C-e ?\C-j ?\C-a ?\S-\C-e ?\C-y ?\C-a])
 ;; Keys
 
+(global-set-key (kbd "C-x g") 'magit-status)
+
 (global-set-key (kbd "<f5>") 'revert-buffer-no-confirm)
 (global-set-key (kbd "C-<f5>") 'next-buffer)
 (global-set-key (kbd "M-<f5>") 'previous-buffer)
+
 (global-set-key (kbd "<f6>") 'buffer-menu)
 (global-set-key (kbd "C-<f6>") 'other-window)
 (global-set-key (kbd "M-<f6>") 'other-frame)
+
 (global-set-key (kbd "<f7>") 'kill-buffer)
 (global-set-key (kbd "C-<f7>") 'delete-window)
 (global-set-key (kbd "M-<f7>") 'delete-frame)
+
 (global-set-key (kbd "<f8>") 'eshell)
 ;;(global-set-key (kbd "C-<f8>") ')
 ;;(global-set-key (kbd "M-<f8>") ')
+
 ;;(global-set-key (kbd "<f9>") 'eshell)
 ;;(global-set-key (kbd "C-<f9>") ')
 ;;(global-set-key (kbd "M-<f9>") ')
+
 (global-set-key (kbd "<f10>") 'quickrun)
 (global-set-key (kbd "C-<f10>") 'quickrun-with-arg)
 (global-set-key (kbd "M-<f10>") 'quickrun-compile-only)
