@@ -55,6 +55,8 @@
 (require 'elmacro)
 (elmacro-mode)
 
+(require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
 ;; init load
 ;;(require 'init-loader)
 ;;(setq init-loader-show-log-after-init nil)
