@@ -25,7 +25,7 @@
 (package-install 'irony)
 (package-install 'kotlin-mode)
 (package-install 'ac-html-bootstrap)
-(package-install 'twitering-mode)
+(package-install 'twittering-mode)
 (package-install 'sr-speedbar)
 (package-install 'use-package)
 
