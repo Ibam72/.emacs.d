@@ -24,7 +24,7 @@
 (package-install 'ac-php)
 (package-install 'irony)
 (package-install 'kotlin-mode)
-(package-install 'ac-html-bootstrap)
+;;(package-install 'ac-html-bootstrap)
 (package-install 'twittering-mode)
 (package-install 'sr-speedbar)
 (package-install 'use-package)
@@ -128,20 +128,20 @@
 (global-set-key (kbd "M-<f10>") 'quickrun-compile-only)
 
 
-(custom-set-variables
+;;(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-	(twitering-mode tree-mode company-web company-axiom magit ac-html-bootstrap kotlin-mode elmacro sr-speedbar flycheck-irony init-loader quickrun ac-php yaml-mode neotree elscreen linum hiwin el-get use-package markdown-mode emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
-(custom-set-faces
+;; '(package-selected-packages
+;;   (quote
+;;	(twitering-mode tree-mode company-web company-axiom magit ac-html-bootstrap kotlin-mode elmacro sr-speedbar flycheck-irony init-loader quickrun ac-php yaml-mode neotree elscreen linum hiwin el-get use-package markdown-mode emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
+;;(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ ;;)
 
 (require 'sr-speedbar)
 (setq sr-speedbar-right-side nil)
@@ -220,25 +220,6 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (setq web-mode-engines-alist
 '(("php"    . "\\.phtml\\'")
-  ("blade"  . "\\.blade\\.")))
-(require 'company-web-html)
-(require 'company-web-jade) 
-(require 'company-web-slim)
-(define-key web-mode-map (kbd "C-'") 'company-web-html)
-(add-hook 'web-mode-hook (lambda ()
-                          (set (make-local-variable 'company-backends) '(company-web-html))
-                          (company-mode t)))
-
-(require 'emmet-mode)
-(add-hook 'sgml-mode-hook 'emmet-mode)
-(add-hook 'css-mode-hook  'emmet-mode)
-(add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2)))
-(eval-after-load "emmet-mode"
-  '(define-key emmet-mode-keymap (kbd "C-j") nil))
-(keyboard-translate ?\C-i ?\H-i) ;;C-i と Tabの被りを回避
-(define-key emmet-mode-keymap (kbd "H-i") 'emmet-expand-line) ;; C-i で展開
-
-;;markdown
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
