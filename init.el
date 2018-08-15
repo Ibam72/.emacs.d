@@ -1,4 +1,6 @@
-;; Language
+;;; package --- Sammury
+;;; Commentary:
+;;; Code:
 (set-language-environment 'Japanese)
 
 ;; Coding system
@@ -49,22 +51,12 @@
 (package-install 'magit)
 (global-flycheck-mode)
 
-(add-to-list 'exec-path "C:/Program Files/LLVM/bin") ;;windows
 (require 'use-package)
 (require 'twittering-mode)
 (require 'elmacro)
 (elmacro-mode)
 (require 'magit)
 
-;; init load
-;;(require 'init-loader)
-;;(setq init-loader-show-log-after-init nil)
-;;(init-loader-load "~/.emacs.d/inits/")
-
-;; emacs style
-;;(add-to-list 'default-frame-alist '(font . "ricty-12")) ;mac
-;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;;(setq custom-theme-directory "~/.emacs.d/themes")
 (require 'hiwin)
 (hiwin-activate)
 (set-face-background 'hiwin-face "#ffeeff")
@@ -90,16 +82,8 @@
 (set-face-attribute 'elscreen-tab-other-screen-face nil
                     :background "grey30"
                     :foreground "grey60")
-;; neotree
 (require 'neotree)
 (global-set-key "\C-o" 'neotree-toggle)
-
-;; macro
-;;(let frame-parameter buffer-list)
-;;(let frame-selected-window )
-;;(fset 'kill-buffer-and-frame
-;;	  [() ?\S-\C-e ?\M-w ?\C-e ?\C-j ?\C-a ?\S-\C-e ?\C-y ?\C-a])
-;; Keys
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -119,29 +103,13 @@
 ;;(global-set-key (kbd "C-<f8>") ')
 ;;(global-set-key (kbd "M-<f8>") ')
 
-;;(global-set-key (kbd "<f9>") 'eshell)
+(global-set-key (kbd "<f9>") 'replace-string)
 ;;(global-set-key (kbd "C-<f9>") ')
 ;;(global-set-key (kbd "M-<f9>") ')
 
 (global-set-key (kbd "<f10>") 'quickrun)
 (global-set-key (kbd "C-<f10>") 'quickrun-with-arg)
 (global-set-key (kbd "M-<f10>") 'quickrun-compile-only)
-
-
-;;(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-;; '(package-selected-packages
-;;   (quote
-;;	(twitering-mode tree-mode company-web company-axiom magit ac-html-bootstrap kotlin-mode elmacro sr-speedbar flycheck-irony init-loader quickrun ac-php yaml-mode neotree elscreen linum hiwin el-get use-package markdown-mode emmet-mode web-mode php-mode js2-mode flycheck company-irony irony company))))
-;;(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- ;;)
 
 (require 'sr-speedbar)
 (setq sr-speedbar-right-side nil)
@@ -152,7 +120,6 @@
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 4)
 (setq company-selection-wrap-around t)
-(setq w32-pipe-read-delay 0) ; for windows
 
 
 ;; C,C++
