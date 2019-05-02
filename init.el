@@ -253,4 +253,3 @@
       (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
       (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete) ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
       ))
-
