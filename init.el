@@ -49,6 +49,7 @@
 (package-install 'magit)
 (package-install 'go-mode)
 (package-install 'company-go)
+(package-install 'protobuf-mode)
 (global-flycheck-mode)
 
 (require 'use-package)
@@ -56,7 +57,7 @@
 (require 'elmacro)
 (elmacro-mode)
 (require 'magit)
-
+(require 'protobuf-mode)
 (require 'hiwin)
 (hiwin-activate)
 (set-face-background 'hiwin-face "#ffeeff")
@@ -133,15 +134,21 @@
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 (add-to-list 'company-backends 'company-irony)
 (eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+  '(add-hook 'flycheck-mode-hook 'flycheck-irony-setup))
 (require 'flycheck)
+(add-hook 'c++-mode-hook
+          (lambda () (setq flycheck-clang-standard-library "libc++")))
+(add-hook 'c++-mode-hook
+          (lambda () (setq flycheck-clang-standard-library "protobuf")))
+(add-hook 'c++-mode-hook
+          (lambda () (setq flycheck-clang-language-standard "c++1y")))
 ;(add-hook 'c++-mode-hook
 ;          (lambda () (setq flycheck-clang-include-path
 ;                           (list (expand-file-name "~/work/gitlab/galaxy/src/")))))
 
 ;; C,C++ compile option
 (setq irony-lang-compile-option-alist
-      (quote ((c++-mode . "c++ -std=c++17 -lstdc++")
+      (quote ((c++-mode . "c++ -std=c++11 -lstdc++")
               (c-mode . "c")
               (objc-mode . "objective-c"))))
 (defun ad-irony--lang-compile-option ()
@@ -151,7 +158,7 @@
 (advice-add 'irony--lang-compile-option :override #'ad-irony--lang-compile-option)
 
 ;; tern && js2-mode 4 javasprict
-(require 'tern)
+;(require 'tern)
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 ;(setq company-tern-property-marker "")
@@ -165,35 +172,6 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
-
-;; ac-php
-;; before this use,
-;; comannd "touch .ac-php-conf.json"
-;; and     " M-x ac-php-remake-tags-all
-;; in top derectory
-;;(require 'cl)
-;;(require 'php-mode)
-;;(add-hook 'php-mode-hook
-;;            '(lambda ()
-;;               (auto-complete-mode t)
-;;               (setq ac-sources  '(ac-source-php ) )
-;;               (yas-global-mode 1)
-;;               (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-;;               (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
-;;               ))
-
-
-
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(setq web-mode-markup-indent-offset 2)
 
 ;(setq web-mode-engines-alist
 ;'(("php"    . "\\.phtml\\'")
@@ -212,7 +190,7 @@
  '(magit-diff-arguments nil)
  '(package-selected-packages
    (quote
-    (go-mode company-go flycheck php-mode company linum irony yaml-mode web-mode use-package twittering-mode tree-mode sr-speedbar quickrun neotree markdown-mode magit kotlin-mode js2-mode init-loader hiwin flycheck-irony emmet-mode elscreen elmacro company-web company-tern company-irony-c-headers company-irony ac-php))))
+    (emacsql-mysql protobuf-mode protocolbuf-mode go-mode company-go flycheck php-mode company linum irony yaml-mode web-mode use-package twittering-mode tree-mode sr-speedbar quickrun neotree markdown-mode magit kotlin-mode js2-mode init-loader hiwin flycheck-irony emmet-mode elscreen elmacro company-web company-tern company-irony-c-headers company-irony ac-php))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -220,10 +198,10 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; Goのパスを通す
+
+(setenv "GOPATH" "/Users/kojiro-honkawa/dev")
 (add-to-list 'exec-path (expand-file-name "/usr/local/bin/go"))
-;; go get で入れたツールのパスを通す
-(add-to-list 'exec-path (expand-file-name "/Users/karen-kamishiro/dev/bin"))
+(add-to-list 'exec-path (expand-file-name "/Users/kojiro-honkawa/dev/bin"))
 
 ;; flycheck-modeを有効化してシンタックスエラーを検知
 (add-hook 'go-mode-hook 'flycheck-mode)
@@ -253,3 +231,48 @@
       (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
       (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete) ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
       ))
+
+;; load environment value
+(load-file (expand-file-name "~/.emacs.d/shellenv.el"))
+(dolist (path (reverse (split-string (getenv "PATH") ":")))
+  (add-to-list 'exec-path path))
+
+(require 'tramp)
+(add-to-list 'tramp-remote-path "/home/local/GENIEE/kojiro-honkawa/bin")
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
+(require 'sql)
+(defalias 'sql-get-login 'ignore)
+
+(defun my-sql-save-history-hook ()
+  (let ((lval 'sql-input-ring-file-name)
+        (rval 'sql-product))
+    (if (symbol-value rval)
+        (let ((filename 
+               (concat "~/.emacs.d/sql/"
+                       (symbol-name (symbol-value rval))
+                       "-history.sql")))
+          (set (make-local-variable lval) filename))
+      (error
+       (format "SQL history will not be saved because %s is nil"
+               (symbol-name rval))))))
+
+(add-hook 'sql-interactive-mode-hook 'my-sql-save-history-hook)
+
+(use-package eww
+  :config
+  (bind-keys :map eww-mode-map
+             ("h" . backward-char)
+             ("j" . next-line)
+             ("k" . previous-line)
+             ("l" . forward-char)
+             ("J" . View-scroll-line-forward)  ;; カーソルは移動せず、画面がスクロースする
+             ("K" . View-scroll-line-backward)
+             ("s-[" . eww-back-url)
+             ("s-]" . eww-forward-url)
+             ("s-{" . previous-buffer)
+             ("s-}" . next-buffer)
+             )
+  )
+
+(setq eww-search-prefix "https://www.google.co.jp/search?btnI&q=")
